@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function AddExpense({ apiBaseUrl, onExpenseAdded }) {
+function AddExpense({ apiBaseUrl, authHeaders, onExpenseAdded }) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -18,10 +18,14 @@ function AddExpense({ apiBaseUrl, onExpenseAdded }) {
 
     setSubmitting(true);
     try {
-      await axios.post(`${apiBaseUrl}/add_expense`, {
-        name: name.trim(),
-        amount: parseFloat(amount),
-      });
+      await axios.post(
+        `${apiBaseUrl}/add_expense`,
+        {
+          name: name.trim(),
+          amount: parseFloat(amount),
+        },
+        { headers: authHeaders }
+      );
 
       setName("");
       setAmount("");

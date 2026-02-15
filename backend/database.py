@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from datetime import datetime
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,36 +12,68 @@ def get_connection():
     return conn
 
 
+def _ensure_column(conn, table_name: str, column_name: str, alter_sql: str):
+    cols = conn.execute(f"PRAGMA table_info({table_name})").fetchall()
+    if not any(col["name"] == column_name for col in cols):
+        conn.execute(alter_sql)
+
+
 def init_db():
     with get_connection() as conn:
         conn.execute(
             """
-            CREATE TABLE IF NOT EXISTS expenses (
+            CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
-                amount REAL NOT NULL,
-                category TEXT NOT NULL,
-                timestamp TEXT NOT NULL
-            )
-            """
-        )
-        conn.execute(
-            """
-            CREATE TABLE IF NOT EXISTS user_profile (
-                id INTEGER PRIMARY KEY CHECK (id = 1),
-                name TEXT NOT NULL,
-                email TEXT NOT NULL,
+                email TEXT NOT NULL UNIQUE,
+                phone TEXT,
+                account_details TEXT,
+                password_hash TEXT NOT NULL,
+                auth_token TEXT,
+                created_at TEXT NOT NULL,
                 updated_at TEXT NOT NULL
             )
             """
         )
+        _ensure_column(conn, "users", "phone", "ALTER TABLE users ADD COLUMN phone TEXT")
+        _ensure_column(
+            conn,
+            "users",
+            "account_details",
+            "ALTER TABLE users ADD COLUMN account_details TEXT",
+        )
 
-        existing = conn.execute("SELECT id FROM user_profile WHERE id = 1").fetchone()
-        if existing is None:
-            default_name = os.getenv("USER_PROFILE_NAME", "SpendSense User").strip() or "SpendSense User"
-            default_email = os.getenv("USER_PROFILE_EMAIL", "user@spendsense.local").strip() or "user@spendsense.local"
-            conn.execute(
-                "INSERT INTO user_profile (id, name, email, updated_at) VALUES (1, ?, ?, ?)",
-                (default_name, default_email, datetime.utcnow().isoformat()),
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS expenses (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                name TEXT NOT NULL,
+                amount REAL NOT NULL,
+                category TEXT NOT NULL,
+                timestamp TEXT NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id)
             )
+            """
+        )
+        _ensure_column(
+            conn,
+            "expenses",
+            "user_id",
+            "ALTER TABLE expenses ADD COLUMN user_id INTEGER",
+        )
+
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS budgets (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                month TEXT NOT NULL,
+                amount REAL NOT NULL,
+                updated_at TEXT NOT NULL,
+                UNIQUE(user_id, month),
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+            """
+        )
         conn.commit()

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function UserProfile({ apiBaseUrl }) {
+function UserProfile({ apiBaseUrl, authHeaders, onProfileUpdated }) {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState("");
   const [name, setName] = useState("");
@@ -9,21 +9,22 @@ function UserProfile({ apiBaseUrl }) {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get(`${apiBaseUrl}/user_profile`);
-        const data = response.data;
-        setProfile(data);
-        setName(data?.name || "");
-        setEmail(data?.email || "");
-      } catch (err) {
-        setError(err?.response?.data?.error || "Unable to fetch user profile.");
-      }
-    };
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get(`${apiBaseUrl}/user_profile`, { headers: authHeaders });
+      const data = response.data;
+      setProfile(data);
+      setName(data?.name || "");
+      setEmail(data?.email || "");
+      setError("");
+    } catch (err) {
+      setError(err?.response?.data?.error || "Unable to fetch user profile.");
+    }
+  };
 
+  useEffect(() => {
     fetchProfile();
-  }, [apiBaseUrl]);
+  }, []);
 
   const saveProfile = async (event) => {
     event.preventDefault();
@@ -37,11 +38,16 @@ function UserProfile({ apiBaseUrl }) {
 
     setSaving(true);
     try {
-      const response = await axios.put(`${apiBaseUrl}/user_profile`, {
-        name: name.trim(),
-        email: email.trim(),
-      });
+      const response = await axios.put(
+        `${apiBaseUrl}/user_profile`,
+        {
+          name: name.trim(),
+          email: email.trim(),
+        },
+        { headers: authHeaders }
+      );
       setProfile((previous) => ({ ...(previous || {}), ...response.data }));
+      onProfileUpdated((prev) => ({ ...(prev || {}), ...response.data }));
       setMessage("Profile updated.");
     } catch (err) {
       setError(err?.response?.data?.error || "Unable to update profile.");
