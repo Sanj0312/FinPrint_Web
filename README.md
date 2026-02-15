@@ -1,6 +1,6 @@
-# SpendSense AI
+# FinPrint
 
-SpendSense AI is a production-quality, hackathon-ready AI-powered expense tracker built with React, Flask, SQLite, Google Gemini API, and Backboard API.
+FinPrint is a production-quality, hackathon-ready AI-powered expense tracker built with React, Flask, SQLite, Google Gemini API, and Backboard API.
 
 ## Features
 - Add and store expenses in SQLite

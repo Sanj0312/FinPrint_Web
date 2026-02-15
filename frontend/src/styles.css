@@ -155,6 +155,25 @@ body {
   gap: 12px;
 }
 
+.top-tabs {
+  margin: 8px 0 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.top-tab {
+  width: auto;
+  border: 1px solid var(--border);
+  background: rgba(16, 27, 45, 0.9);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.top-tab.active {
+  background: linear-gradient(90deg, var(--primary), #2cb5f8);
+  color: #06111f;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -243,7 +262,8 @@ h3 {
 
 input,
 textarea,
-button {
+button,
+select {
   width: 100%;
   padding: 10px 12px;
   border-radius: 10px;
@@ -253,7 +273,8 @@ button {
 }
 
 input,
-textarea {
+textarea,
+select {
   margin-bottom: 10px;
   background: rgba(13, 26, 45, 0.9);
   color: var(--text);
@@ -298,10 +319,64 @@ button:hover {
 .expense-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
   padding: 12px;
   border-radius: 12px;
   background: rgba(14, 28, 48, 0.7);
   border: 1px solid var(--border);
+}
+
+.expense-row-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.expense-row-side {
+  text-align: right;
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.expense-edit-fields input {
+  margin-bottom: 8px;
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.row-action-btn {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 0.82rem;
+}
+
+.danger-btn {
+  background: linear-gradient(90deg, #ff7a7a, #ff5f5f);
+  color: #1f0505;
+}
+
+.badge-muted {
+  background: rgba(147, 168, 208, 0.22);
+  color: #c7d3ea;
+}
+
+.coach-thread {
+  max-height: 460px;
+  overflow: auto;
+}
+
+.coach-row.user {
+  border-left: 3px solid #2cb5f8;
+}
+
+.coach-row.assistant {
+  border-left: 3px solid #2ad1a3;
 }
 
 .meta {
@@ -802,6 +877,10 @@ button:hover {
 
   .app-header-row {
     flex-direction: column;
+  }
+
+  .top-tabs {
+    flex-wrap: wrap;
   }
 
   .dashboard-hero-images img {

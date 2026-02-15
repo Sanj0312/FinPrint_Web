@@ -48,6 +48,7 @@ def init_db():
             CREATE TABLE IF NOT EXISTS expenses (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER,
+                external_id TEXT,
                 name TEXT NOT NULL,
                 amount REAL NOT NULL,
                 category TEXT NOT NULL,
@@ -62,6 +63,19 @@ def init_db():
             "user_id",
             "ALTER TABLE expenses ADD COLUMN user_id INTEGER",
         )
+        _ensure_column(
+            conn,
+            "expenses",
+            "external_id",
+            "ALTER TABLE expenses ADD COLUMN external_id TEXT",
+        )
+        conn.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS idx_expenses_user_external_id
+            ON expenses(user_id, external_id)
+            WHERE external_id IS NOT NULL
+            """
+        )
 
         conn.execute(
             """
@@ -72,6 +86,40 @@ def init_db():
                 amount REAL NOT NULL,
                 updated_at TEXT NOT NULL,
                 UNIQUE(user_id, month),
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+            """
+        )
+
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS coach_messages (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                role TEXT NOT NULL,
+                content TEXT NOT NULL,
+                model TEXT,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+            """
+        )
+
+        conn.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_coach_messages_user_created
+            ON coach_messages(user_id, created_at)
+            """
+        )
+
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS income_profiles (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL UNIQUE,
+                monthly_income REAL NOT NULL,
+                savings_goal_pct REAL NOT NULL,
+                updated_at TEXT NOT NULL,
                 FOREIGN KEY (user_id) REFERENCES users(id)
             )
             """

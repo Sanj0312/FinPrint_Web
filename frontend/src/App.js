@@ -6,6 +6,8 @@ import Dashboard from "./components/Dashboard";
 import UserSettings from "./components/UserSettings";
 import Reports from "./components/Reports";
 import AuthPage from "./components/AuthPage";
+import MoneyDNA from "./components/MoneyDNA";
+import CoachChat from "./components/CoachChat";
 import SiteFooter from "./components/SiteFooter";
 import BrandLogo from "./components/BrandLogo";
 
@@ -24,6 +26,7 @@ function App() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   const authHeaders = useMemo(() => ({ Authorization: `Bearer ${token}` }), [token]);
 
@@ -39,6 +42,7 @@ function App() {
     setUser(null);
     setExpenses([]);
     setSummary({ total_spending: 0, spending_per_category: {}, ai_insight: "" });
+    setActiveTab("dashboard");
   };
 
   const fetchAuthUser = useCallback(async () => {
@@ -80,8 +84,29 @@ function App() {
     bootstrap();
   }, [bootstrap]);
 
-  const handleExpenseAdded = async () => {
-    await Promise.all([fetchExpenses(), fetchSummary()]);
+  const handleExpenseAdded = async (newExpense) => {
+    if (newExpense?.id) {
+      setExpenses((prev) => {
+        const withoutDuplicate = prev.filter((item) => item.id !== newExpense.id);
+        return [newExpense, ...withoutDuplicate];
+      });
+    } else {
+      await fetchExpenses();
+    }
+    await fetchSummary();
+  };
+
+  const handleExpenseDeleted = async (expenseId) => {
+    await axios.delete(`${API_BASE_URL}/expenses/${expenseId}`, { headers: authHeaders });
+    setExpenses((prev) => prev.filter((item) => item.id !== expenseId));
+    await fetchSummary();
+  };
+
+  const handleExpenseUpdated = async (expenseId, updates) => {
+    const response = await axios.put(`${API_BASE_URL}/expenses/${expenseId}`, updates, { headers: authHeaders });
+    const updated = response.data;
+    setExpenses((prev) => prev.map((item) => (item.id === expenseId ? updated : item)));
+    await fetchSummary();
   };
 
   if (!token) {
@@ -117,6 +142,37 @@ function App() {
           </button>
         </div>
       </header>
+
+      <div className="top-tabs">
+        <button
+          type="button"
+          className={activeTab === "dashboard" ? "top-tab active" : "top-tab"}
+          onClick={() => setActiveTab("dashboard")}
+        >
+          Dashboard
+        </button>
+        <button
+          type="button"
+          className={activeTab === "expenses" ? "top-tab active" : "top-tab"}
+          onClick={() => setActiveTab("expenses")}
+        >
+          My Expenses
+        </button>
+        <button
+          type="button"
+          className={activeTab === "money-dna" ? "top-tab active" : "top-tab"}
+          onClick={() => setActiveTab("money-dna")}
+        >
+          Money DNA
+        </button>
+        <button
+          type="button"
+          className={activeTab === "coach" ? "top-tab active" : "top-tab"}
+          onClick={() => setActiveTab("coach")}
+        >
+          Coach
+        </button>
+      </div>
 
       <section className="dashboard-hero card wide">
         <div className="dashboard-hero-copy">
@@ -156,23 +212,42 @@ function App() {
         <UserSettings apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} onSettingsUpdated={setUser} />
       </aside>
 
-      <div className="grid-layout">
-        <section className="card">
-          <AddExpense apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} onExpenseAdded={handleExpenseAdded} />
-        </section>
+      {activeTab === "dashboard" ? (
+        <div className="grid-layout">
+          <section className="card">
+            <Reports apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} />
+          </section>
 
-        <section className="card">
-          <Reports apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} />
-        </section>
-
-        <section className="card wide">
-          <Dashboard summary={summary} />
-        </section>
-
-        <section className="card wide">
-          <ExpenseList expenses={expenses} />
-        </section>
-      </div>
+          <section className="card wide">
+            <Dashboard summary={summary} />
+          </section>
+        </div>
+      ) : activeTab === "expenses" ? (
+        <div className="grid-layout">
+          <section className="card">
+            <AddExpense apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} onExpenseAdded={handleExpenseAdded} />
+          </section>
+          <section className="card wide">
+            <ExpenseList
+              expenses={expenses}
+              onDeleteExpense={handleExpenseDeleted}
+              onUpdateExpense={handleExpenseUpdated}
+            />
+          </section>
+        </div>
+      ) : activeTab === "coach" ? (
+        <div className="grid-layout">
+          <section className="card wide">
+            <CoachChat apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} />
+          </section>
+        </div>
+      ) : (
+        <div className="grid-layout">
+          <section className="card wide">
+            <MoneyDNA apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} />
+          </section>
+        </div>
+      )}
 
       <SiteFooter />
     </div>

@@ -18,7 +18,7 @@ function AddExpense({ apiBaseUrl, authHeaders, onExpenseAdded }) {
 
     setSubmitting(true);
     try {
-      await axios.post(
+      const response = await axios.post(
         `${apiBaseUrl}/add_expense`,
         {
           name: name.trim(),
@@ -30,7 +30,7 @@ function AddExpense({ apiBaseUrl, authHeaders, onExpenseAdded }) {
       setName("");
       setAmount("");
       setMessage("Expense added successfully.");
-      await onExpenseAdded();
+      await onExpenseAdded(response.data);
     } catch (error) {
       setMessage(error?.response?.data?.error || "Failed to add expense.");
     } finally {
