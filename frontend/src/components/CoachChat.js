@@ -1,6 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
+function formatCoachText(content = "") {
+  return String(content)
+    .replace(/\r/g, "")
+    .replace(/###\s*/g, "\n")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\s+-\s+/g, "\n- ")
+    .replace(/\s+(\d+\.)\s+/g, "\n$1 ")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function CoachChat({ apiBaseUrl, authHeaders }) {
   const [messages, setMessages] = useState([]);
   const [models, setModels] = useState([]);
@@ -110,9 +122,11 @@ function CoachChat({ apiBaseUrl, authHeaders }) {
               className={item.role === "assistant" ? "expense-row coach-row assistant" : "expense-row coach-row user"}
               key={item.id}
             >
-              <div>
+              <div className="coach-message-block">
                 <strong>{item.role === "assistant" ? "Coach" : "You"}</strong>
-                <div>{item.content}</div>
+                <div className={item.role === "assistant" ? "coach-content assistant" : "coach-content"}>
+                  {item.role === "assistant" ? formatCoachText(item.content) : item.content}
+                </div>
                 {item.model ? <div className="meta">Model: {item.model}</div> : null}
               </div>
             </div>

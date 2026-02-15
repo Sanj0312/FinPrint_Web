@@ -11,7 +11,7 @@ import CoachChat from "./components/CoachChat";
 import SiteFooter from "./components/SiteFooter";
 import BrandLogo from "./components/BrandLogo";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5003";
 const TOKEN_KEY = "spendsense_auth_token";
 
 function App() {
@@ -84,6 +84,44 @@ function App() {
     bootstrap();
   }, [bootstrap]);
 
+  useEffect(() => {
+    const elements = Array.from(
+      document.querySelectorAll(".app-header-row, .top-tabs, .dashboard-hero, .grid-layout .card, .site-footer")
+    );
+
+    if (!elements.length) {
+      return undefined;
+    }
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion) {
+      elements.forEach((el) => el.classList.add("in-view"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    elements.forEach((el, index) => {
+      const delay = index > 4 ? 280 : index * 70;
+      el.classList.add("reveal-on-scroll");
+      el.style.setProperty("--reveal-delay", String(delay) + "ms");
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [activeTab, loading, token]);
+
   const handleExpenseAdded = async (newExpense) => {
     if (newExpense?.id) {
       setExpenses((prev) => {
@@ -107,6 +145,11 @@ function App() {
     const updated = response.data;
     setExpenses((prev) => prev.map((item) => (item.id === expenseId ? updated : item)));
     await fetchSummary();
+  };
+
+  const handleHeroImageFallback = (event) => {
+    event.currentTarget.onerror = null;
+    event.currentTarget.src = "https://picsum.photos/id/180/1000/700";
   };
 
   if (!token) {
@@ -187,10 +230,12 @@ function App() {
           <img
             src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
             alt="Financial planning desk"
+            onError={handleHeroImageFallback}
           />
           <img
-            src="https://images.unsplash.com/photo-1551281044-8b53a17f4c13?auto=format&fit=crop&w=800&q=80"
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
             alt="Analytics dashboard"
+            onError={handleHeroImageFallback}
           />
         </div>
       </section>
@@ -214,8 +259,8 @@ function App() {
 
       {activeTab === "dashboard" ? (
         <div className="grid-layout">
-          <section className="card">
-            <Reports apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} />
+          <section className="card wide">
+            <Reports apiBaseUrl={API_BASE_URL} authHeaders={authHeaders} compact />
           </section>
 
           <section className="card wide">

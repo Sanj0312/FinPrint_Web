@@ -1,7 +1,7 @@
 import React from "react";
 
 function Dashboard({ summary }) {
-  const categories = Object.entries(summary.spending_per_category || {});
+  const categories = Object.entries(summary.spending_per_category || {}).sort((a, b) => b[1] - a[1]);
 
   return (
     <div>
@@ -26,8 +26,8 @@ function Dashboard({ summary }) {
       {categories.length === 0 ? (
         <p className="meta">No category data available yet.</p>
       ) : (
-        <div className="list">
-          {categories.map(([category, amount]) => (
+        <div className="list compact-list">
+          {categories.slice(0, 7).map(([category, amount]) => (
             <div className="expense-row" key={category}>
               <span>{category}</span>
               <strong>${Number(amount).toFixed(2)}</strong>
