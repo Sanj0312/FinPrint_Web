@@ -6,6 +6,8 @@ import Dashboard from "./components/Dashboard";
 import UserSettings from "./components/UserSettings";
 import Reports from "./components/Reports";
 import AuthPage from "./components/AuthPage";
+import SiteFooter from "./components/SiteFooter";
+import BrandLogo from "./components/BrandLogo";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 const TOKEN_KEY = "spendsense_auth_token";
@@ -90,8 +92,13 @@ function App() {
     <div className="app-container">
       <header className="app-header app-header-row">
         <div>
-          <h1>SpendSense AI</h1>
-          <p>AI-powered expense intelligence for smarter decisions.</p>
+          <div className="brand-row">
+            <BrandLogo />
+            <h1 className="brand-title">
+              FinPrint <span className="brand-sub">by Fynx</span>
+            </h1>
+          </div>
+          <p>Decode your Money DNA with AI-powered expense intelligence.</p>
         </div>
         <div className="header-actions">
           <span className="meta">{user?.email || "Signed in"}</span>
@@ -166,6 +173,8 @@ function App() {
           <ExpenseList expenses={expenses} />
         </section>
       </div>
+
+      <SiteFooter />
     </div>
   );
 }
