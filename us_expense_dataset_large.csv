@@ -1,0 +1,151 @@
+Date,Account,Category,Subcategory,Note,Income/Expense,Amount,Currency
+01/01/2026 13:52,Bank of America,Travel,Southwest Airlines,Southwest Airlines,Expense,375.14,USD
+01/01/2026 14:39,Bank of America,Transportation,Shell Gas,Shell Gas,Expense,45.32,USD
+01/01/2026 23:56,Chase Debit,Shopping,IKEA,IKEA,Expense,384.55,USD
+01/02/2026 01:15,Amex Credit,Travel,Southwest Airlines,Southwest Airlines,Expense,391.56,USD
+01/02/2026 02:13,Amex Credit,Entertainment,Bowling Alley,Bowling Alley,Expense,124.38,USD
+01/02/2026 02:14,Bank of America,Food,Local Diner,Local Diner,Expense,82.31,USD
+01/02/2026 03:59,Amex Credit,Health,Doctor Visit,Doctor Visit,Expense,110.99,USD
+01/04/2026 12:46,Amex Credit,Health,CVS Pharmacy,CVS Pharmacy,Expense,114.49,USD
+01/04/2026 17:15,Employer Direct Deposit,Transportation,Lyft,Lyft,Expense,15.0,USD
+01/04/2026 18:30,Chase Debit,Income,Tax Refund,Tax Refund,Income,1365.88,USD
+01/05/2026 01:10,Bank of America,Shopping,IKEA,IKEA,Expense,378.24,USD
+01/05/2026 01:55,Bank of America,Health,CVS Pharmacy,CVS Pharmacy,Expense,215.38,USD
+01/05/2026 18:44,Bank of America,Entertainment,AMC Theatres,AMC Theatres,Expense,142.47,USD
+01/05/2026 22:57,Bank of America,Bills,Phone - Verizon,Phone - Verizon,Expense,110.62,USD
+01/06/2026 07:10,Employer Direct Deposit,Insurance,Health Insurance,Health Insurance,Expense,340.68,USD
+01/06/2026 07:43,Amex Credit,Shopping,Target,Target,Expense,406.18,USD
+01/06/2026 07:55,Bank of America,Transportation,Lyft,Lyft,Expense,25.85,USD
+01/06/2026 20:27,Amex Credit,Shopping,Amazon,Amazon,Expense,16.72,USD
+01/08/2026 07:14,Amex Credit,Transportation,Uber,Uber,Expense,6.58,USD
+01/08/2026 18:15,Bank of America,Food,Whole Foods,Whole Foods,Expense,14.43,USD
+01/09/2026 11:56,Amex Credit,Transportation,Chevron,Chevron,Expense,32.71,USD
+01/10/2026 04:51,Chase Debit,Shopping,Amazon,Amazon,Expense,497.05,USD
+01/11/2026 11:22,Chase Debit,Entertainment,Netflix,Netflix,Expense,143.35,USD
+01/12/2026 15:13,Bank of America,Health,Doctor Visit,Doctor Visit,Expense,149.33,USD
+01/12/2026 18:16,Bank of America,Food,Starbucks,Starbucks,Expense,73.61,USD
+01/13/2026 00:39,Chase Debit,Bills,Electricity - Duke Energy,Electricity - Duke Energy,Expense,287.39,USD
+01/14/2026 01:37,Chase Debit,Income,Salary,Salary,Income,4613.87,USD
+01/14/2026 10:06,Bank of America,Transportation,Lyft,Lyft,Expense,12.25,USD
+01/14/2026 21:40,Chase Debit,Shopping,IKEA,IKEA,Expense,251.94,USD
+01/15/2026 01:51,Amex Credit,Health,Dental Cleaning,Dental Cleaning,Expense,121.74,USD
+01/15/2026 03:29,Employer Direct Deposit,Transportation,Car Wash,Car Wash,Expense,67.41,USD
+01/15/2026 20:04,Amex Credit,Food,Local Diner,Local Diner,Expense,8.57,USD
+01/16/2026 05:35,Employer Direct Deposit,Transportation,Chevron,Chevron,Expense,5.2,USD
+01/16/2026 15:51,Employer Direct Deposit,Insurance,Car Insurance,Car Insurance,Expense,147.16,USD
+01/17/2026 01:45,Amex Credit,Insurance,Car Insurance,Car Insurance,Expense,359.96,USD
+01/17/2026 02:30,Bank of America,Food,DoorDash,DoorDash,Expense,67.03,USD
+01/17/2026 16:55,Amex Credit,Insurance,Car Insurance,Car Insurance,Expense,564.46,USD
+01/18/2026 23:37,Chase Debit,Income,Tax Refund,Tax Refund,Income,2056.49,USD
+01/20/2026 08:14,Chase Debit,Transportation,Car Wash,Car Wash,Expense,19.44,USD
+01/20/2026 18:27,Chase Debit,Shopping,IKEA,IKEA,Expense,316.2,USD
+01/20/2026 21:37,Bank of America,Health,Dental Cleaning,Dental Cleaning,Expense,230.32,USD
+01/21/2026 07:53,Amex Credit,Transportation,Uber,Uber,Expense,71.12,USD
+01/23/2026 09:52,Amex Credit,Entertainment,Concert Ticket,Concert Ticket,Expense,14.5,USD
+01/23/2026 13:21,Bank of America,Health,CVS Pharmacy,CVS Pharmacy,Expense,345.94,USD
+01/23/2026 13:26,Chase Debit,Travel,Southwest Airlines,Southwest Airlines,Expense,555.02,USD
+01/23/2026 17:56,Amex Credit,Insurance,Car Insurance,Car Insurance,Expense,562.88,USD
+01/24/2026 13:04,Chase Debit,Health,Doctor Visit,Doctor Visit,Expense,272.09,USD
+01/25/2026 01:54,Employer Direct Deposit,Travel,Airbnb,Airbnb,Expense,199.68,USD
+01/25/2026 08:59,Chase Debit,Income,Salary,Salary,Income,4265.38,USD
+01/26/2026 10:17,Employer Direct Deposit,Transportation,Uber,Uber,Expense,31.34,USD
+01/27/2026 01:12,Employer Direct Deposit,Income,Freelance Payment,Freelance Payment,Income,3924.49,USD
+01/27/2026 01:13,Chase Debit,Insurance,Health Insurance,Health Insurance,Expense,552.42,USD
+01/27/2026 22:31,Chase Debit,Shopping,Nike Store,Nike Store,Expense,409.58,USD
+01/28/2026 03:34,Amex Credit,Entertainment,Concert Ticket,Concert Ticket,Expense,182.6,USD
+01/28/2026 15:01,Employer Direct Deposit,Insurance,Health Insurance,Health Insurance,Expense,434.44,USD
+01/28/2026 18:38,Amex Credit,Health,Dental Cleaning,Dental Cleaning,Expense,187.88,USD
+01/28/2026 23:35,Bank of America,Health,Doctor Visit,Doctor Visit,Expense,287.08,USD
+01/29/2026 00:05,Amex Credit,Shopping,Target,Target,Expense,211.13,USD
+01/29/2026 02:38,Bank of America,Food,Trader Joe's,Trader Joe's,Expense,89.47,USD
+01/29/2026 02:45,Bank of America,Shopping,Target,Target,Expense,146.78,USD
+01/29/2026 03:29,Employer Direct Deposit,Shopping,Nike Store,Nike Store,Expense,472.2,USD
+01/29/2026 17:45,Chase Debit,Shopping,IKEA,IKEA,Expense,492.17,USD
+01/30/2026 02:20,Employer Direct Deposit,Shopping,Best Buy,Best Buy,Expense,71.22,USD
+01/30/2026 10:21,Employer Direct Deposit,Insurance,Health Insurance,Health Insurance,Expense,476.0,USD
+01/30/2026 10:55,Amex Credit,Entertainment,Concert Ticket,Concert Ticket,Expense,118.64,USD
+01/31/2026 07:29,Amex Credit,Income,Salary,Salary,Income,2609.72,USD
+01/31/2026 15:28,Bank of America,Health,Walgreens,Walgreens,Expense,386.89,USD
+02/01/2026 17:48,Employer Direct Deposit,Entertainment,Spotify,Spotify,Expense,132.72,USD
+02/02/2026 15:05,Amex Credit,Food,Local Diner,Local Diner,Expense,17.61,USD
+02/02/2026 15:50,Bank of America,Bills,Rent,Rent,Expense,596.22,USD
+02/03/2026 08:35,Bank of America,Food,DoorDash,DoorDash,Expense,87.88,USD
+02/04/2026 13:42,Bank of America,Health,CVS Pharmacy,CVS Pharmacy,Expense,212.27,USD
+02/04/2026 14:08,Amex Credit,Insurance,Car Insurance,Car Insurance,Expense,239.27,USD
+02/05/2026 00:33,Employer Direct Deposit,Entertainment,AMC Theatres,AMC Theatres,Expense,55.86,USD
+02/05/2026 04:12,Amex Credit,Insurance,Health Insurance,Health Insurance,Expense,438.66,USD
+02/05/2026 13:38,Employer Direct Deposit,Entertainment,Bowling Alley,Bowling Alley,Expense,82.27,USD
+02/06/2026 01:48,Employer Direct Deposit,Bills,Internet - Spectrum,Internet - Spectrum,Expense,1057.17,USD
+02/06/2026 06:29,Chase Debit,Shopping,Best Buy,Best Buy,Expense,96.38,USD
+02/06/2026 06:45,Bank of America,Transportation,Shell Gas,Shell Gas,Expense,54.59,USD
+02/06/2026 21:58,Amex Credit,Insurance,Health Insurance,Health Insurance,Expense,570.74,USD
+02/07/2026 07:00,Amex Credit,Transportation,Car Wash,Car Wash,Expense,52.33,USD
+02/07/2026 17:09,Bank of America,Insurance,Car Insurance,Car Insurance,Expense,120.91,USD
+02/08/2026 08:51,Chase Debit,Food,DoorDash,DoorDash,Expense,57.83,USD
+02/08/2026 20:10,Employer Direct Deposit,Income,Tax Refund,Tax Refund,Income,1846.46,USD
+02/09/2026 17:49,Bank of America,Travel,Amtrak,Amtrak,Expense,376.68,USD
+02/09/2026 18:19,Amex Credit,Insurance,Car Insurance,Car Insurance,Expense,251.94,USD
+02/10/2026 03:01,Chase Debit,Shopping,Target,Target,Expense,123.26,USD
+02/10/2026 08:10,Chase Debit,Travel,Amtrak,Amtrak,Expense,470.68,USD
+02/10/2026 14:45,Bank of America,Bills,Internet - Spectrum,Internet - Spectrum,Expense,385.23,USD
+02/10/2026 14:48,Amex Credit,Food,Chipotle,Chipotle,Expense,35.71,USD
+02/12/2026 15:13,Employer Direct Deposit,Income,Salary,Salary,Income,4478.44,USD
+02/12/2026 16:35,Employer Direct Deposit,Health,Dental Cleaning,Dental Cleaning,Expense,252.81,USD
+02/12/2026 17:19,Chase Debit,Transportation,Chevron,Chevron,Expense,24.83,USD
+02/12/2026 20:19,Chase Debit,Travel,Hotel Stay,Hotel Stay,Expense,746.76,USD
+02/13/2026 17:21,Bank of America,Food,Starbucks,Starbucks,Expense,105.86,USD
+02/13/2026 23:57,Chase Debit,Income,Salary,Salary,Income,3747.71,USD
+02/14/2026 04:40,Bank of America,Travel,Southwest Airlines,Southwest Airlines,Expense,704.54,USD
+02/14/2026 14:04,Amex Credit,Entertainment,Netflix,Netflix,Expense,159.69,USD
+02/14/2026 19:30,Bank of America,Shopping,Amazon,Amazon,Expense,127.27,USD
+02/15/2026 05:19,Chase Debit,Income,Salary,Salary,Income,3537.38,USD
+02/15/2026 06:04,Employer Direct Deposit,Insurance,Health Insurance,Health Insurance,Expense,265.44,USD
+02/15/2026 09:25,Employer Direct Deposit,Health,Dental Cleaning,Dental Cleaning,Expense,361.85,USD
+02/15/2026 17:08,Bank of America,Shopping,Amazon,Amazon,Expense,487.53,USD
+02/15/2026 20:44,Bank of America,Income,Freelance Payment,Freelance Payment,Income,1712.42,USD
+02/15/2026 22:24,Chase Debit,Travel,Amtrak,Amtrak,Expense,232.99,USD
+02/16/2026 05:53,Chase Debit,Travel,Airbnb,Airbnb,Expense,785.54,USD
+02/16/2026 09:32,Bank of America,Shopping,Nike Store,Nike Store,Expense,173.2,USD
+02/16/2026 10:27,Amex Credit,Income,Salary,Salary,Income,2618.57,USD
+02/17/2026 17:09,Bank of America,Shopping,Best Buy,Best Buy,Expense,308.34,USD
+02/17/2026 17:48,Employer Direct Deposit,Bills,Electricity - Duke Energy,Electricity - Duke Energy,Expense,464.11,USD
+02/17/2026 18:27,Amex Credit,Insurance,Health Insurance,Health Insurance,Expense,209.66,USD
+02/18/2026 05:34,Employer Direct Deposit,Income,Salary,Salary,Income,3794.2,USD
+02/18/2026 12:54,Bank of America,Insurance,Car Insurance,Car Insurance,Expense,344.11,USD
+02/18/2026 14:36,Bank of America,Insurance,Health Insurance,Health Insurance,Expense,114.35,USD
+02/18/2026 17:49,Amex Credit,Bills,Electricity - Duke Energy,Electricity - Duke Energy,Expense,1333.11,USD
+02/19/2026 05:19,Bank of America,Transportation,Parking Meter,Parking Meter,Expense,6.93,USD
+02/19/2026 20:21,Employer Direct Deposit,Transportation,Uber,Uber,Expense,37.61,USD
+02/20/2026 13:51,Chase Debit,Entertainment,Netflix,Netflix,Expense,40.25,USD
+02/20/2026 21:27,Employer Direct Deposit,Transportation,Lyft,Lyft,Expense,33.62,USD
+02/21/2026 00:48,Amex Credit,Bills,Internet - Spectrum,Internet - Spectrum,Expense,706.89,USD
+02/22/2026 00:18,Employer Direct Deposit,Shopping,IKEA,IKEA,Expense,296.26,USD
+02/23/2026 06:18,Chase Debit,Entertainment,Netflix,Netflix,Expense,44.09,USD
+02/23/2026 17:28,Amex Credit,Bills,Internet - Spectrum,Internet - Spectrum,Expense,922.14,USD
+02/23/2026 20:17,Bank of America,Income,Freelance Payment,Freelance Payment,Income,3947.12,USD
+02/24/2026 05:04,Employer Direct Deposit,Transportation,Car Wash,Car Wash,Expense,69.64,USD
+02/24/2026 18:24,Bank of America,Travel,Southwest Airlines,Southwest Airlines,Expense,757.06,USD
+02/24/2026 21:38,Bank of America,Transportation,Parking Meter,Parking Meter,Expense,63.7,USD
+02/25/2026 02:17,Bank of America,Insurance,Health Insurance,Health Insurance,Expense,567.12,USD
+02/25/2026 02:28,Chase Debit,Income,Salary,Salary,Income,778.24,USD
+02/25/2026 04:28,Employer Direct Deposit,Income,Freelance Payment,Freelance Payment,Income,2398.18,USD
+02/25/2026 05:51,Bank of America,Bills,Internet - Spectrum,Internet - Spectrum,Expense,88.58,USD
+02/25/2026 14:11,Amex Credit,Food,McDonald's,McDonald's,Expense,48.6,USD
+02/25/2026 16:52,Employer Direct Deposit,Food,DoorDash,DoorDash,Expense,104.98,USD
+02/25/2026 20:19,Bank of America,Income,Tax Refund,Tax Refund,Income,1594.01,USD
+02/26/2026 18:05,Chase Debit,Transportation,Car Wash,Car Wash,Expense,41.45,USD
+02/26/2026 20:29,Bank of America,Bills,Water Bill,Water Bill,Expense,313.68,USD
+02/27/2026 01:10,Bank of America,Insurance,Car Insurance,Car Insurance,Expense,592.65,USD
+02/27/2026 01:57,Chase Debit,Health,Walgreens,Walgreens,Expense,279.19,USD
+02/27/2026 03:49,Employer Direct Deposit,Insurance,Car Insurance,Car Insurance,Expense,187.94,USD
+02/27/2026 17:05,Amex Credit,Bills,Electricity - Duke Energy,Electricity - Duke Energy,Expense,493.27,USD
+02/28/2026 08:11,Employer Direct Deposit,Insurance,Health Insurance,Health Insurance,Expense,584.53,USD
+02/28/2026 12:37,Amex Credit,Food,Starbucks,Starbucks,Expense,78.92,USD
+02/28/2026 18:56,Employer Direct Deposit,Health,Walgreens,Walgreens,Expense,269.07,USD
+03/01/2026 08:13,Amex Credit,Health,Walgreens,Walgreens,Expense,120.93,USD
+03/01/2026 09:28,Amex Credit,Travel,Southwest Airlines,Southwest Airlines,Expense,71.65,USD
+03/01/2026 12:05,Bank of America,Income,Freelance Payment,Freelance Payment,Income,5061.73,USD
+03/01/2026 14:18,Bank of America,Insurance,Health Insurance,Health Insurance,Expense,177.4,USD
+03/01/2026 22:18,Employer Direct Deposit,Income,Tax Refund,Tax Refund,Income,2003.84,USD
+03/02/2026 06:40,Amex Credit,Entertainment,Netflix,Netflix,Expense,135.48,USD
+03/02/2026 15:07,Chase Debit,Transportation,Lyft,Lyft,Expense,41.88,USD

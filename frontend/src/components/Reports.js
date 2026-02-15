@@ -1,8 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  BarChart,
+  Bar,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  LineChart,
+  Line,
+  Legend,
+} from "recharts";
+
+const CHART_COLORS = ["#2ad1a3", "#2cb5f8", "#ffd166", "#ff8a5b", "#8ec5ff", "#7c91ff", "#6fd4ff", "#63e6be"];
 
 function Reports({ apiBaseUrl, authHeaders }) {
   const [report, setReport] = useState(null);
+  const [dataset, setDataset] = useState(null);
   const [budgetAmount, setBudgetAmount] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -11,10 +29,14 @@ function Reports({ apiBaseUrl, authHeaders }) {
     setLoading(true);
     setMessage("");
     try {
-      const response = await axios.get(`${apiBaseUrl}/reports`, { headers: authHeaders });
-      setReport(response.data);
-      if (response.data?.budget) {
-        setBudgetAmount(String(response.data.budget));
+      const [reportRes, datasetRes] = await Promise.all([
+        axios.get(`${apiBaseUrl}/reports`, { headers: authHeaders }),
+        axios.get(`${apiBaseUrl}/dataset_analytics`, { headers: authHeaders }),
+      ]);
+      setReport(reportRes.data);
+      setDataset(datasetRes.data);
+      if (reportRes.data?.budget) {
+        setBudgetAmount(String(reportRes.data.budget));
       }
     } catch (error) {
       setMessage(error?.response?.data?.error || "Unable to load reports.");
@@ -110,6 +132,104 @@ function Reports({ apiBaseUrl, authHeaders }) {
             ))}
           </div>
         </>
+      ) : null}
+
+      {dataset ? (
+        <div className="dataset-analytics">
+          <h3>Dataset Analytics</h3>
+          <p className="meta">
+            Source: <strong>us_expense_dataset_large.csv</strong> | Records: {dataset.rows}
+          </p>
+
+          <div className="kpi-grid">
+            <div className="kpi-card income">
+              <span>Total Income</span>
+              <strong>
+                ${Number(dataset.total_income || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              </strong>
+            </div>
+            <div className="kpi-card expense">
+              <span>Total Expense</span>
+              <strong>
+                ${Number(dataset.total_expense || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              </strong>
+            </div>
+            <div className="kpi-card net">
+              <span>Net Balance</span>
+              <strong>
+                ${Number(dataset.net_balance || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              </strong>
+            </div>
+          </div>
+
+          <div className="chart-grid">
+            <div className="chart-card">
+              <h4>Category Split</h4>
+              <div className="chart-box">
+                <ResponsiveContainer width="100%" height={280}>
+                  <PieChart>
+                    <Pie
+                      data={dataset.top_categories || []}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={90}
+                      label
+                    >
+                      {(dataset.top_categories || []).map((entry, index) => (
+                        <Cell key={`cat-${entry.name}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => `$${Number(value).toFixed(2)}`} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="chart-card">
+              <h4>Top Subcategories</h4>
+              <div className="chart-box">
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart data={dataset.top_subcategories || []} layout="vertical" margin={{ left: 16 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(147,168,208,0.2)" />
+                    <XAxis type="number" stroke="#9fb0cf" />
+                    <YAxis dataKey="name" type="category" stroke="#9fb0cf" width={110} />
+                    <Tooltip formatter={(value) => `$${Number(value).toFixed(2)}`} />
+                    <Bar dataKey="value" fill="#2cb5f8" radius={[0, 8, 8, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="chart-card chart-card-wide">
+              <h4>Monthly Income vs Expense</h4>
+              <div className="chart-box">
+                <ResponsiveContainer width="100%" height={320}>
+                  <LineChart data={dataset.monthly_trend || []}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(147,168,208,0.2)" />
+                    <XAxis dataKey="month" stroke="#9fb0cf" />
+                    <YAxis stroke="#9fb0cf" />
+                    <Tooltip formatter={(value) => `$${Number(value).toFixed(2)}`} />
+                    <Legend />
+                    <Line type="monotone" dataKey="income" stroke="#2ad1a3" strokeWidth={3} dot={false} />
+                    <Line type="monotone" dataKey="expense" stroke="#ff8a5b" strokeWidth={3} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+
+          <h4>Top Accounts by Spend</h4>
+          <div className="list">
+            {(dataset.top_accounts || []).map((item) => (
+              <div className="expense-row" key={item.name}>
+                <span>{item.name}</span>
+                <strong>${Number(item.value).toFixed(2)}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
       ) : null}
     </div>
   );

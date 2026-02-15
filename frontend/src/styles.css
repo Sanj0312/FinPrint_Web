@@ -221,6 +221,76 @@ button:hover {
   gap: 12px;
 }
 
+.dataset-analytics {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.kpi-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.kpi-card {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(14, 28, 48, 0.75);
+}
+
+.kpi-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-bottom: 8px;
+}
+
+.kpi-card strong {
+  font-size: 1.08rem;
+}
+
+.kpi-card.income {
+  box-shadow: inset 0 0 0 1px rgba(42, 209, 163, 0.25);
+}
+
+.kpi-card.expense {
+  box-shadow: inset 0 0 0 1px rgba(255, 138, 91, 0.25);
+}
+
+.kpi-card.net {
+  box-shadow: inset 0 0 0 1px rgba(44, 181, 248, 0.25);
+}
+
+.chart-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.chart-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(10, 22, 38, 0.8);
+  padding: 12px;
+}
+
+.chart-card h4 {
+  margin: 0 0 8px;
+}
+
+.chart-card-wide {
+  grid-column: span 2;
+}
+
+.chart-box {
+  width: 100%;
+  height: 280px;
+}
+
 .insight {
   margin-top: 14px;
   padding: 12px;
@@ -349,6 +419,8 @@ button:hover {
 @media (max-width: 980px) {
   .grid-layout,
   .summary-grid,
+  .kpi-grid,
+  .chart-grid,
   .dashboard-hero,
   .auth-layout {
     grid-template-columns: 1fr;
@@ -364,5 +436,9 @@ button:hover {
 
   .dashboard-hero-images img {
     height: 190px;
+  }
+
+  .chart-card-wide {
+    grid-column: span 1;
   }
 }

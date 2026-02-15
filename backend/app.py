@@ -1,5 +1,6 @@
 import os
-from collections import defaultdict
+import csv
+from collections import Counter, defaultdict
 from datetime import datetime
 from uuid import uuid4
 
@@ -94,6 +95,112 @@ def _get_month_debits(user_id: int, month: str):
             (user_id, month),
         ).fetchone()
     return round(float(row["total"] or 0), 2)
+
+
+def _dataset_file_path():
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "..",
+        "us_expense_dataset_large.csv",
+    )
+
+
+def _parse_dataset_date(raw_value: str):
+    value = (raw_value or "").strip()
+    if not value:
+        return None
+
+    date_formats = ("%m/%d/%Y %H:%M", "%m/%d/%Y", "%Y-%m-%d")
+    for fmt in date_formats:
+        try:
+            return datetime.strptime(value, fmt)
+        except ValueError:
+            continue
+    return None
+
+
+def _compute_dataset_analytics():
+    dataset_path = _dataset_file_path()
+    if not os.path.exists(dataset_path):
+        raise FileNotFoundError("Dataset file 'us_expense_dataset_large.csv' was not found.")
+
+    total_income = 0.0
+    total_expense = 0.0
+    row_count = 0
+    currency = "USD"
+
+    category_totals = Counter()
+    subcategory_totals = Counter()
+    account_totals = Counter()
+    monthly_expense = Counter()
+    monthly_income = Counter()
+
+    with open(dataset_path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            row_count += 1
+            tx_type = str(row.get("Income/Expense", "")).strip().lower()
+            category = str(row.get("Category", "Other")).strip() or "Other"
+            subcategory = str(row.get("Subcategory", "Other")).strip() or "Other"
+            account = str(row.get("Account", "Unknown")).strip() or "Unknown"
+            date_raw = str(row.get("Date", "")).strip()
+            currency = str(row.get("Currency", currency)).strip() or currency
+
+            try:
+                amount = float(row.get("Amount") or 0)
+            except ValueError:
+                amount = 0.0
+
+            parsed_date = _parse_dataset_date(date_raw)
+            month_key = parsed_date.strftime("%Y-%m") if parsed_date else "Unknown"
+
+            if tx_type == "income":
+                total_income += amount
+                monthly_income[month_key] += amount
+            else:
+                total_expense += amount
+                category_totals[category] += amount
+                subcategory_totals[subcategory] += amount
+                account_totals[account] += amount
+                monthly_expense[month_key] += amount
+
+    top_categories = [
+        {"name": name, "value": round(value, 2)}
+        for name, value in category_totals.most_common(8)
+    ]
+    top_subcategories = [
+        {"name": name, "value": round(value, 2)}
+        for name, value in subcategory_totals.most_common(8)
+    ]
+    top_accounts = [
+        {"name": name, "value": round(value, 2)}
+        for name, value in account_totals.most_common(8)
+    ]
+
+    months = sorted(set(monthly_expense.keys()) | set(monthly_income.keys()))
+    monthly_trend = [
+        {
+            "month": month,
+            "expense": round(monthly_expense.get(month, 0.0), 2),
+            "income": round(monthly_income.get(month, 0.0), 2),
+        }
+        for month in months
+        if month != "Unknown"
+    ]
+
+    return {
+        "currency": currency,
+        "rows": row_count,
+        "total_income": round(total_income, 2),
+        "total_expense": round(total_expense, 2),
+        "net_balance": round(total_income - total_expense, 2),
+        "top_categories": top_categories,
+        "top_subcategories": top_subcategories,
+        "top_accounts": top_accounts,
+        "monthly_trend": monthly_trend,
+    }
+
+
 
 
 @app.route("/health", methods=["GET"])
@@ -492,6 +599,22 @@ def reports():
         ),
         200,
     )
+
+
+@app.route("/dataset_analytics", methods=["GET"])
+def dataset_analytics():
+    user, error = _require_user()
+    if error:
+        return error
+
+    try:
+        return jsonify(_compute_dataset_analytics()), 200
+    except FileNotFoundError as exc:
+        return jsonify({"error": str(exc)}), 404
+    except Exception as exc:
+        return jsonify({"error": f"Failed to process dataset analytics: {str(exc)}"}), 500
+
+
 
 
 if __name__ == "__main__":
